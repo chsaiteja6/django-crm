@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<div class="container">
+<h1>Contact Screen - {{ customer.first_name }}</h1>
+    <p>Email: {{ customer.email }}</p>
+    
+    <h2>Communication History</h2>
+    <ul class="list-group">
+        {% for communication in communications %}
+            <li class="list-group-item">{{ communication.timestamp }} - {{ communication.conversation }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Add New Communication</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Communication</button>
+    </form>
+</div>
+    {% endblock %}

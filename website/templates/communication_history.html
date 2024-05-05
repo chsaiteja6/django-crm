@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<h1>Communication History for {{ customer.name }}</h1>
+    
+<!-- Display existing communication history -->
+<h2>Existing Communications:</h2>
+<ul>
+    {% for communication in communications %}
+        <li>{{ communication.timestamp }} - {{ communication.communication_type }}: {{ communication.conversation_info }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Add new communication form -->
+<h2>Add New Communication:</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Communication</button>
+</form>
+
+<!-- Button to send email -->
+<h2>Send Email</h2>
+<form action="{% url 'send_email_to_customer' customer.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Send Email to {{ customer.name }}</button>
+</form>
+
+{% endblock %}
